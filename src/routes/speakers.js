@@ -18,4 +18,32 @@ speakersRoutes.get('/:name', (request, response) => {
   response.send(`You are looking for ${request.path}`);
 });
 
-module.exports = speakersRoutes;
+const getAllSpeakersMiddleware = async (request, response, next) => {
+  try {
+    const speakers = await speakersService.getListShort();
+
+    response.locals.speakers = speakers;
+
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+const getSpeakerNamesMiddleware = async (request, response, next) => {
+  try {
+    const names = await speakersService.getNames();
+
+    response.locals.speakerNames = names;
+
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = {
+  speakersRoutes,
+  getSpeakerNamesMiddleware,
+  getAllSpeakersMiddleware,
+};
