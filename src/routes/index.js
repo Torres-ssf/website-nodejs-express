@@ -5,7 +5,7 @@ const speakersRoutes = require('./speakers');
 
 const routes = express.Router();
 
-routes.use('/feedback', feedBackRoutes);
+routes.use('/feedbacks', feedBackRoutes);
 
 routes.use('/speakers', speakersRoutes);
 
