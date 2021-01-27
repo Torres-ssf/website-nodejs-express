@@ -1,9 +1,19 @@
 const express = require('express');
 const path = require('path');
+const cookieSession = require('cookie-session');
 
 const routes = require('./routes/index.js');
 
 const app = express();
+
+app.set('trust proxy', 1);
+
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['hausdhia', 'ashjdahjsd'],
+  }),
+);
 
 app.set('view engine', 'ejs');
 
