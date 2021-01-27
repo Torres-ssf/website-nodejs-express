@@ -15,14 +15,16 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/speakers">All Speakers</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Lorenzo Garcia</a>
-          <a class="dropdown-item" href="/Hillary_Goldwynn">Hilary Goldywynn Post</a>
-          <a class="dropdown-item" href="#">Riley Rudolph Rewington</a>
-        </div>
-      </li>
-      <li class="nav-item"> <a href="/feedback" class="nav-link">Feedback</a>
-      </li>
-    </ul>
+          
+          <% speakerNames.forEach(speaker => { %>
+            <a class="dropdown-item" href="/speakers/<%=speaker.shortName%>"><%=speaker.name%></a>
+            <% }) %>
+            
+          </div>
+        </li>
+        <li class="nav-item"> <a href="/feedback" class="nav-link">Feedback</a>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
 </nav>
