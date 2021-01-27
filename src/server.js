@@ -3,6 +3,7 @@ const path = require('path');
 const cookieSession = require('cookie-session');
 
 const routes = require('./routes/index.js');
+const {getSpeakerNamesMiddleware} = require('./routes/speakers')
 
 const app = express();
 
@@ -20,6 +21,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
 app.use(express.static(path.join(__dirname, './static')));
+
+app.locals.siteName = 'ROUX Meetings';
+
+app.use(getSpeakerNamesMiddleware);
 
 app.use(routes);
 
