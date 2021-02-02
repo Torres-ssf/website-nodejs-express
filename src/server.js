@@ -3,7 +3,7 @@ const path = require('path');
 const cookieSession = require('cookie-session');
 
 const routes = require('./routes/index.js');
-const {getSpeakerNamesMiddleware} = require('./routes/speakers')
+const { getSpeakerNamesMiddleware } = require('./routes/speakers');
 
 const app = express();
 

@@ -6,18 +6,6 @@ const speakersService = new SpeakersService('./src/data/speakers.json');
 
 const speakersRoutes = express.Router();
 
-speakersRoutes.get('/', async (request, response) => {
-  const speakers = await speakersService.getList();
-
-  // response.render('pages/speakers', { pageTitle: 'Speakers' });
-
-  return response.json(speakers);
-});
-
-speakersRoutes.get('/:name', (request, response) => {
-  response.send(`You are looking for ${request.path}`);
-});
-
 const getAllSpeakersMiddleware = async (request, response, next) => {
   try {
     const speakers = await speakersService.getListShort();
@@ -41,6 +29,33 @@ const getSpeakerNamesMiddleware = async (request, response, next) => {
     return next(err);
   }
 };
+
+speakersRoutes.get('/', async (request, response) => {
+  const speakers = await speakersService.getList();
+
+  const artwork = await speakersService.getAllArtwork();
+
+  return response.render('layouts', {
+    pageTitle: 'Speakers',
+    template: 'speakers',
+    speakers,
+    artwork,
+  });
+});
+
+speakersRoutes.get('/:shortname', async (request, response) => {
+  const { shortname } = request.params;
+
+  const speaker = await speakersService.getSpeaker(shortname);
+  const artwork = await speakersService.getArtworkForSpeaker(shortname);
+
+  return response.render('layouts', {
+    pageTitle: shortname,
+    template: 'speakers-detail',
+    speaker,
+    artwork,
+  });
+});
 
 module.exports = {
   speakersRoutes,
